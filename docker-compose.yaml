@@ -1,0 +1,24 @@
+services:
+  task-time-tracker-api:
+    image: task-time-tracker-api:latest
+    build: .
+    restart: "no"
+    ports:
+      - "8080:8080"
+
+  task-db:
+    image: postgres:latest
+    container_name: task-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: task_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres_data:

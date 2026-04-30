@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.tasktimetrackerapi.mapper.TimeRecordMapper">
+    <select id="selectFromTo" resultType="org.example.tasktimetrackerapi.model.TimeRecord">
+        <![CDATA[
+            select *
+            from time_records
+            where (end_time >= #{startTime} and start_time <= #{endTime}) and employee_id = #{employeeId}
+        ]]>
+    </select>
+    <insert id="insert" parameterType="org.example.tasktimetrackerapi.model.TimeRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into time_records(employee_id, task_id, start_time, end_time, description)
+        values(#{employeeId}, #{taskId}, #{startTime}, #{endTime}, #{description})
+    </insert>
+</mapper>
